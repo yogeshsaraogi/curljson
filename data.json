@@ -1,0 +1,47 @@
+{
+    "policy": {
+      "description": "ingesting logs",
+      "default_state": "ingest",
+      "states": [
+        {
+          "name": "ingest",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "search",
+              "conditions": {
+                "min_index_age": "5m"
+              }
+            }
+          ]
+        },
+        {
+          "name": "search",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "5m"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": {
+        "index_patterns": ["opensearch*"],
+        "priority": 100
+      }
+    }
+  }
+
+  
